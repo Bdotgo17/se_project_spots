@@ -1,0 +1,38 @@
+/*.footer {
+   /* display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+    /*padding: 60px 668px 60px 668px;
+}*/
+    
+
+
+.footer {
+    /*height: 120px;*/
+    display: flex;
+    justify-content: center;
+    padding: 60px 0 60px;
+    /*font-family: "Poppins" , Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 16px;*/
+    line-height: 16px;
+    /*letter-spacing: 0%;*/
+    opacity: 70%;
+    /*padding: 60px;
+    background-color: #fcf5e5;
+    text-align: center;*/
+    width: 100%;
+    /*margin: auto;
+    position: relative;*/
+    
+    /*padding-left: 668px;
+    padding-right: 668px;*/
+    
+    
+}
+
+/**@media screen and (max-width: 1440px) {
+    .footer__content {
+       padding-top: 2448px 108px 60px 108px;
+    }
+}*/

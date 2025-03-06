@@ -1,12 +1,9 @@
-.card {
-    max-width: 413px;
-}
-
 .card__image {
     height: 413px;
-    width: 413px;
+    width: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 8px;
 }
 
 .card__content {
@@ -22,4 +19,21 @@
     border: none;
     background-color: transparent;
     opacity: 40%;
+}
+
+.card__title {
+    line-height: 120%;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 353px;
+}
+
+@media screen and (max-width: 627px) {
+    .card__image {
+    height: 288px;
+    }
 }
