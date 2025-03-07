@@ -56,13 +56,13 @@
     line-height: 100%;
     letter-spacing: 0%;
     color: #212121;
-    display: block;
     text-align: start;
     background-image: url(../images/pencil.svg);
     background-repeat: no-repeat;
     border: none;
     background-color: #fcf5e5;
     padding: 0;
+    gap: 8px;
 }
 
 .profile__edit-btn::before {
@@ -75,13 +75,15 @@
 
 .profile__add-btn { 
     margin-left: auto;
-    max-width: 100%;
+    width: 100%;
     width: 149px;
     height: 52px;
     border-radius: 8px;
     gap: 8px;
     background-color: #212121;
     color: #efefef;
+    border: none;
+    align-self: end;
 }
 
 .profile__add-btn::before {
