@@ -63,10 +63,11 @@
     background-color: #fcf5e5;
     padding: 0;
     gap: 8px;
+    opacity: 70%;
 }
 
 .profile__edit-btn:hover {
-    opacity: 2;
+    opacity: 1;
 }
 
 .profile__edit-btn::before {
@@ -88,6 +89,7 @@
     color: #FCF5E5;
     border: none;
     align-self: end;
+    cursor: pointer;
 }
 
 .profile__add-btn::before {
@@ -122,6 +124,7 @@
 
     .profile__add-btn {
         margin: 0;
+        width: 100%;
     }
 
     .profile__name {
