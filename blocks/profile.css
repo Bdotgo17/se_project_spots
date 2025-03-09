@@ -65,6 +65,10 @@
     gap: 8px;
 }
 
+.profile__edit-btn:hover {
+    opacity: 2;
+}
+
 .profile__edit-btn::before {
     content: "";
     width: 16px;
@@ -81,7 +85,7 @@
     border-radius: 8px;
     gap: 8px;
     background-color: #212121;
-    color: #efefef;
+    color: #FCF5E5;
     border: none;
     align-self: end;
 }
@@ -112,7 +116,7 @@
     .profile__avatar {
         margin-right: 0;
         height: 80px;
-        width: 80px;
+        width: 100%;
         margin-bottom: 12px;
     }
 
