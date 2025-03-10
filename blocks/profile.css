@@ -68,6 +68,7 @@
 
 .profile__edit-btn:hover {
     opacity: 1;
+    cursor: pointer;
 }
 
 .profile__edit-btn::before {
@@ -92,13 +93,12 @@
     cursor: pointer;
 }
 
-.profile__add-btn::before {
-    content: "";
-    width: 16px;
-    height: 16px;
-  } 
+.profile__add-btn:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
 
-  .profile__add-btn::after {
+.profile__add-btn::before {
     content: "";
     width: 16px;
     height: 16px;
