@@ -24,6 +24,7 @@
   width: 100%;
   box-sizing: border-box;
   position: relative;
+  border-radius: 8px;
 }
 
 .modal__close-btn {
@@ -34,17 +35,23 @@
   height: 40px;
   opacity: 40%;
   background-image: url(../images/xThird.svg);
-  background-color: white;
+  background-color: transparent;
   border: none;
+}
+
+.modal__close-btn:hover {
+  cursor: pointer;
+  background-image: url(../images/darkerX.svg);
+  color: #212121;
 }
 
 .modal__title {
   margin: 0 0 32px;
-  font-family: Poppins;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 32px;
   line-height: 1;
-  letter-spacing: 0%;
+  color: #212121;
 }
 
 .modal__label {
@@ -55,30 +62,40 @@
   font-family: Poppins;
   font-weight: 500;
   font-size: 16px;
-  line-height: 110.00000000000001%;
-  letter-spacing: 0%;
+  line-height: 110%;
+  color: #212121;
+  opacity: 70%;
 }
 
 .modal__input {
   padding: 16px 12px;
-  font-family: Poppins;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 100%;
-  letter-spacing: 0%;
+  color: #212121;
+  border-radius: 8px;
+}
+
+.modal__input:hover {
+  border-radius: 8px;
+  border: #212121;
 }
 
 .modal__submit-btn {
   width: 156px;
   padding: 18px 0;
-  font-family: Poppins;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
-  letter-spacing: 0%;
   border-radius: 8px;
   background: #212121;
   color: #fcf5e5;
+}
+
+.modal__submit-btn:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 627px) {
@@ -106,5 +123,12 @@
 
   .modal__submit-btn {
     width: 100%;
+  }
+
+  .modal__input {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
   }
 }
