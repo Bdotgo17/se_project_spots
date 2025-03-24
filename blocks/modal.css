@@ -41,7 +41,7 @@
 
 .modal__close-btn:hover {
   cursor: pointer;
-  opacity: 40%;
+  opacity: 100%;
 }
 
 .modal__title {
@@ -74,12 +74,12 @@
   line-height: 100%;
   color: #212121;
   border-radius: 8px;
-  border-color: rgba(0, 0, 0, 1);
+  border-color: #212121;
+  opacity: 40%;
 }
 
 .modal__input:hover {
-  border-radius: 8px;
-  border-color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 1);
 }
 
 .modal__submit-btn {
