@@ -27,6 +27,14 @@
   border-radius: 8px;
 }
 
+.modal__container_type_preview {
+  padding: 0;
+}
+
+.modal__image {
+  width: 100%;
+}
+
 .modal__close-btn {
   position: absolute;
   top: 32px;
@@ -37,6 +45,12 @@
   background-image: url(../images/xThird.svg);
   background-color: transparent;
   border: none;
+}
+
+.modal__close-btn-preview {
+  background-image: url("../images/closeIconLightX.svg");
+  top: 0;
+  right: -12.5px;
 }
 
 .modal__close-btn:hover {
