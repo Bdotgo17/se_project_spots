@@ -37,6 +37,23 @@
   background-image: url(../images/redHeartLikedDarker.svg);
 }
 
+.card__delete-button {
+  background-image: url(../images/defaultLightGrayTrashCan.svg);
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: transparent;
+  opacity: 40%;
+  cursor: pointer;
+  float: right;
+}
+
+.card__delete-button:hover {
+  background-image: url(../images/redTrashCan.svg);
+  opacity: none;
+}
+
 .card__title {
   line-height: 120%;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
