@@ -1,3 +1,6 @@
+/* finish styling preview modal*/
+/* make preview modal responsive*/
+
 .modal {
   position: fixed;
   top: 0;
@@ -29,10 +32,27 @@
 
 .modal__container_type_preview {
   padding: 0;
+  width: unset;
 }
 
 .modal__image {
   width: 100%;
+  object-fit: contain;
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.modal__caption {
+  width: 135;
+  height: 32;
+  top: 750px;
+  left: 497px;
+  border-radius: 8px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-bottom: 4px;
+  padding-left: 8px;
 }
 
 .modal__close-btn {
@@ -48,9 +68,10 @@
 }
 
 .modal__close-btn-preview {
-  background-image: url("../images/closeIconLightX.svg");
+  background-image: url(../images/closeIconLightX.svg);
   top: 0;
-  right: -12.5px;
+  right: -42.5px;
+  opacity: 1;
 }
 
 .modal__close-btn:hover {
