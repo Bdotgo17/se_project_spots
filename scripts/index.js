@@ -59,12 +59,13 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardLikeBtn = cardElement.querySelector(".card__like-button");
-  //const cardDeleteBtn = cardElement.querySelector("")
-  //delete button
+  const cardDeleteBtn = cardElement.querySelector(".card__delete-button");
 
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
   cardImageEl.alt = data.name;
+
+  cardDeleteBtn.addEventListener("click", handleAddCardSubmit);
 
   cardLikeBtn.addEventListener("click", () => {
     cardLikeBtn.classList.toggle("card__like-button_liked");
@@ -73,15 +74,11 @@ function getCardElement(data) {
   function handleImageClick(data) {
     previewModalImageEl.src = data.link;
     previewModalImageEl.alt = data.name;
-    previewModalCaptionEl.textContent = data.value;
+    previewModalCaptionEl.textContent = data.name;
     openModal(previewModal);
   }
 
-  cardImageEl.addEventListener("click", handleImageClick);
-
-  //set listener for delete button
-
-  //add delete and hover images in css
+  cardImageEl.addEventListener("click", () => handleImageClick(data));
 
   return cardElement;
 }
@@ -130,7 +127,9 @@ cardModalCloseBtn.addEventListener("click", () => {
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
 
-//the handler should remove the card from the dom
+previewModal.addEventListener("click", () => {
+  closeModal(previewModal);
+});
 
 initialCards.forEach((item) => {
   const cardElement = getCardElement(item);
