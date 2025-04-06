@@ -177,4 +177,9 @@
   .modal__image {
     width: 320px;
   }
+
+  .modal__close-btn-preview {
+    margin-top: 41px;
+    margin-left: 264px;
+  }
 }
