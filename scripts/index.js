@@ -1,5 +1,3 @@
-// pass settings object to validation functions 
-
 const initialCards = [
   {
     name: "Val Thorens",
@@ -26,6 +24,15 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
+
+const settings = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-btn",
+  inactiveButtonClass: "modal__submit-btn:disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
 
 const profileEditButton = document.querySelector(".profile__edit-btn");
 const cardModalBtn = document.querySelector(".profile__add-btn");
@@ -147,3 +154,5 @@ initialCards.forEach((item) => {
   const cardElement = getCardElement(item);
   cardsList.append(cardElement);
 });
+
+enableValidation(settings);
