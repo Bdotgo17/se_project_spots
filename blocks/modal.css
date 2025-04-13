@@ -125,15 +125,19 @@
   border-color: rgba(33, 33, 33, 1);
 }
 
+.modal__input_type_error {
+  border: 1px solid rgba(255, 0, 0, 0.6);
+}
+
 .modal__error {
   display: block;
-  color: #ff0000;
-  opacity: 70%;
+  color: rgba(255, 0, 0, 0.7);
   font-family: Poppins;
   font-weight: 500;
   font-size: 16px;
   line-height: 110%;
   letter-spacing: 0%;
+  /*opacity: 50%;*/
   /*margin-top: 8px;*/
 }
 
@@ -153,6 +157,10 @@
 .modal__submit-btn:hover {
   cursor: pointer;
   opacity: 80%;
+}
+
+.modal__submit-btn:disabled {
+  opacity: 50%;
 }
 
 @media screen and (max-width: 627px) {
