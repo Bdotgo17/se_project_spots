@@ -1,3 +1,5 @@
+// pass settings object to validation functions 
+
 const initialCards = [
   {
     name: "Val Thorens",
@@ -108,7 +110,7 @@ function handleAddCardSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
   evt.target.reset();
-  disableButton(cardSubmitBtn);
+  disableButton(cardSubmitBtn, settings);
   closeModal(cardModal);
 }
 
