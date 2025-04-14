@@ -152,6 +152,7 @@
   background: #212121;
   color: #fcf5e5;
   border: 0;
+  /*opacity: 50%;*/
 }
 
 .modal__submit-btn:hover {
@@ -159,7 +160,7 @@
   opacity: 80%;
 }
 
-.modal__submit-btn:disabled {
+.modal__submit-btn_disabled {
   opacity: 50%;
 }
 

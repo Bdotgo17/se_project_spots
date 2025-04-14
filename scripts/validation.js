@@ -26,16 +26,18 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (inputList, buttonEl) => {
+const toggleButtonState = (inputList, buttonEl, config) => {
   if (hasInvalidInput(inputList)) {
-    disableButton(buttonEl);
+    disableButton(buttonEl, config);
   } else {
     buttonEl.disabled = false;
+    buttonEl.classList.remove(config.inactiveButtonClass);
   }
 };
 
 const disableButton = (buttonEl, config) => {
   buttonEl.disabled = true;
+  buttonEl.classList.add(config.inactiveButtonClass);
 };
 
 const resetValidation = (formEl, inputList) => {
@@ -64,4 +66,3 @@ const enableValidation = (config) => {
     setEventListeners(formEl, config);
   });
 };
-
