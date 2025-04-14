@@ -141,27 +141,12 @@ profileEditButton.addEventListener("click", () => {
   openModal(editModal);
 });
 
-//delete
-editModalCloseButton.addEventListener("click", () => {
-  closeModal(editModal);
-});
-
 cardModalBtn.addEventListener("click", () => {
   openModal(cardModal);
 });
 
-//delete
-cardModalCloseBtn.addEventListener("click", () => {
-  closeModal(cardModal);
-});
-
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
-
-//delete
-previewModalCloseButton.addEventListener("click", () => {
-  closeModal(previewModal);
-});
 
 initialCards.forEach((item) => {
   const cardElement = getCardElement(item);
