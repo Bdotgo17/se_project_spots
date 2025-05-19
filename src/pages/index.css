@@ -8,3 +8,10 @@
 @import url(../blocks/card.css);
 @import url(../blocks/footer.css);
 @import url(../blocks/modal.css);
+
+/* Font declarations come first */
+
+/* Then your regular CSS rules */
+.page {
+  font-family: "Poppins", Arial, sans-serif;
+}

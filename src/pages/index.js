@@ -1,3 +1,12 @@
+import "./index.css";
+import logoImage from "../images/logo.svg";
+import avatarImage from "../images/avatar.jpg"; 
+import {
+  enableValidation,
+  settings,
+  resetValidation,
+} from "../scripts/validation.js";
+
 const initialCards = [
   {
     name: "Val Thorens",
@@ -24,15 +33,6 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
-
-const settings = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__submit-btn",
-  inactiveButtonClass: "modal__submit-btn_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
 
 const profileEditButton = document.querySelector(".profile__edit-btn");
 const cardModalBtn = document.querySelector(".profile__add-btn");
@@ -62,6 +62,9 @@ const previewModalCloseButton = previewModal.querySelector(".modal__close-btn");
 
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
+
+const profileAvatar = document.querySelector(".profile__avatar");
+profileAvatar.src = avatarImage;
 
 function getCardElement(data) {
   const cardElement = cardTemplate.content
@@ -168,3 +171,5 @@ modals.forEach((modal) => {
     }
   });
 });
+
+enableValidation(settings);

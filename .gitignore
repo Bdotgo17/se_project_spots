@@ -1,2 +1,5 @@
 .DS_Store
 ./.vscode/extensions.json
+
+node_modules/
+dist/
