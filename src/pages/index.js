@@ -7,10 +7,19 @@ import {
   enableValidation,
   settings,
   resetValidation,
-  disableButton,
+  disableButton
 } from "../scripts/validation.js";
 import { setButtonText } from "../utils/helpers.js";
 import Api from "../utils/Api.js";
+
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-btn",
+  inactiveButtonClass: "modal__submit-btn_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
 
 enableValidation({
   formSelector: ".form",
@@ -18,7 +27,10 @@ enableValidation({
   submitButtonSelector: ".form__submit",
   inactiveButtonClass: "form__submit_disabled",
   inputErrorClass: "form__input_type_error",
+  config
 });
+
+
 
 const cardsList = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card-template").content;
@@ -52,6 +64,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 // ];
 
 let currentUserId;
+
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -224,7 +237,7 @@ function getCardElement(card) {
   deleteButton.classList.add("card__delete-button");
   deleteButton.innerHTML = `<img src="${redTrashCan}" alt="Delete" class="card__delete-icon" />`; // Use the imported SVG
   deleteButton.addEventListener("click", () => {
-    openDeleteModal(card._id); // Pass the card ID to the delete modal
+    openDeleteModal(card._id); // Ensure the function name matches exactly
   });
   cardElement.appendChild(deleteButton); // Append the delete button to the card
 
@@ -331,8 +344,8 @@ function handleEscape(evt) {
 }
 
 function openModal(modal) {
+  console.log("Opening modal:", modal);
   modal.classList.add("modal_opened");
-  document.addEventListener("keyup", handleEscape);
 }
 
 function closeModal(modal) {
@@ -508,7 +521,7 @@ function isValidImageUrl(url) {
   }
 }
 
-enableValidation(settings); // Ensure this line ends with a semicolon
+enableValidation(config); // Ensure this line ends with a semicolon
 
 // class Api {
 //   constructor({ baseUrl, headers }) {
@@ -545,63 +558,319 @@ enableValidation(settings); // Ensure this line ends with a semicolon
 
 // Select modal elements
 const deleteConfirmBtn = document.querySelector("#delete-btn");
+const cancelBtn = document.querySelector("#cancel-btn");
 let cardToDeleteId = null; // Store the card ID to delete
 
 // Function to open the delete modal
-// function openDeleteModal(cardId) {
-//   console.log("Opening delete modal for card ID:", cardId);
-//   cardToDeleteId = cardId; // Store the card ID
-//   const deleteModal = document.querySelector("#delete-modal");
-//   deleteModal.classList.add("modal_opened");
-// }
+function openDeleteModal(cardId) {
+  console.log("Opening delete modal for card ID:", cardId);
+  cardToDeleteId = cardId; // Assign the card ID to the existing variable
+  const deleteModal = document.querySelector("#delete-modal");
+  if (!deleteModal) {
+    console.error("Delete modal not found in the DOM.");
+    return;
+  }
+  deleteModal.classList.add("modal_opened"); // Open the modal
+}
 
 // Function to close the delete modal
 function closeDeleteModal() {
   const deleteModal = document.querySelector("#delete-modal");
-  deleteModal.classList.remove("modal_opened");
+  if (!deleteModal) {
+    console.error("Delete modal not found in the DOM.");
+    return;
+  }
+  deleteModal.classList.remove("modal_opened"); // Close the modal
   cardToDeleteId = null; // Clear the stored card ID
 }
 
-// Event listener for the delete confirmation button
+// Event listener for the Delete button
 deleteConfirmBtn.addEventListener("click", () => {
-  if (cardToDeleteId) {
-    api
-      .deleteCard(cardToDeleteId) // Call the API to delete the card
-      .then(() => {
-        console.log(`Card with ID ${cardToDeleteId} deleted.`);
-        document.querySelector(`[data-id="${cardToDeleteId}"]`).remove(); // Remove the card from the DOM
-        closeDeleteModal();
-      })
-      .catch((error) => {
-        console.error("Error deleting card:", error);
-      });
-  }
+  if (!cardToDeleteId) return; // Ensure a card ID is set
+
+  deleteConfirmBtn.textContent = "Deleting..."; // Change button text to "Deleting..."
+  deleteConfirmBtn.disabled = true; // Disable the button to prevent multiple clicks
+
+  // Simulate API call to delete the card
+  api
+    .deleteCard(cardToDeleteId) // Replace with your actual API call
+    .then(() => {
+      console.log(`Card with ID ${cardToDeleteId} deleted.`);
+      const cardElement = document.querySelector(
+        `[data-id="${cardToDeleteId}"]`
+      );
+      if (cardElement) {
+        cardElement.remove(); // Remove the card from the DOM
+      }
+      closeDeleteModal(); // Close the modal
+    })
+    .catch((error) => {
+      console.error("Error deleting card:", error);
+    })
+    .finally(() => {
+      deleteConfirmBtn.textContent = "Delete"; // Reset button text
+      deleteConfirmBtn.disabled = false; // Re-enable the button
+    });
 });
 
-// Event listener for the cancel button
+// Event listener for the Cancel button
 cancelBtn.addEventListener("click", closeDeleteModal);
 
-// const deleteCancelBtn = document.querySelector("#deleteCancelBtn");
-// if (!deleteCancelBtn) {
-//   console.error("deleteCancelBtn not found in the DOM");
-// } else {
-//   deleteCancelBtn.addEventListener("click", closeDeleteModal);
-// }
+document.addEventListener("DOMContentLoaded", () => {
+  const deleteCancelBtn = document.querySelector("#cancel-btn");
+  if (!deleteCancelBtn) {
+    console.error("deleteCancelBtn not found in the DOM");
+    return;
+  }
+
+  deleteCancelBtn.addEventListener("click", () => {
+    console.log("Cancel button clicked");
+    // Add your cancel logic here
+  });
+});
 
 document.addEventListener("DOMContentLoaded", () => {
+  const deleteCancelBtn = document.querySelector("#cancel-btn");
+  const deleteModal = document.querySelector("#delete-modal");
   const deleteConfirmBtn = document.querySelector("#delete-btn");
   let cardToDeleteId = null; // Store the card ID to delete
 
+  if (!deleteCancelBtn) {
+    console.error("deleteCancelBtn not found in the DOM");
+  } else {
+    deleteCancelBtn.addEventListener("click", () => {
+      console.log("Cancel button clicked");
+      closeDeleteModal();
+    });
+  }
+
+  // Function to open the delete modal
   function openDeleteModal(cardId) {
     console.log("Opening delete modal for card ID:", cardId);
     cardToDeleteId = cardId; // Store the card ID
-    const deleteModal = document.querySelector("#delete-modal");
     if (!deleteModal) {
       console.error("Delete modal not found in the DOM.");
       return;
     }
     deleteModal.classList.add("modal_opened");
   }
+
+  // Function to close the delete modal
+  function closeDeleteModal() {
+    if (!deleteModal) {
+      console.error("Delete modal not found in the DOM.");
+      return;
+    }
+    deleteModal.classList.remove("modal_opened");
+    cardToDeleteId = null; // Clear the stored card ID
+  }
+
+  // Event listener for the Delete button
+  if (deleteConfirmBtn) {
+    deleteConfirmBtn.addEventListener("click", () => {
+      if (!cardToDeleteId) return; // Ensure a card ID is set
+
+      deleteConfirmBtn.textContent = "Deleting..."; // Change button text to "Deleting..."
+      deleteConfirmBtn.disabled = true; // Disable the button to prevent multiple clicks
+
+      // Simulate API call to delete the card
+      api.deleteCard(cardToDeleteId) // Replace with your actual API call
+        .then(() => {
+          console.log(`Card with ID ${cardToDeleteId} deleted.`);
+          const cardElement = document.querySelector(`[data-id="${cardToDeleteId}"]`);
+          if (cardElement) {
+            cardElement.remove(); // Remove the card from the DOM
+          }
+          closeDeleteModal(); // Close the modal
+        })
+        .catch((error) => {
+          console.error("Error deleting card:", error);
+        })
+        .finally(() => {
+          deleteConfirmBtn.textContent = "Delete"; // Reset button text
+          deleteConfirmBtn.disabled = false; // Re-enable the button
+        });
+    });
+  } else {
+    console.error("deleteConfirmBtn not found in the DOM");
+  }
 });
 
-export default Api;
+// Export necessary functions, variables, or classes
+export { handleEditFormSubmit, handleAddCardSubmit, handleAvatarUpdate };
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Select modal elements
+  const editProfileModal = document.querySelector("#edit-profile-modal");
+  const deleteModal = document.querySelector("#delete-modal");
+  const deleteCancelBtn = document.querySelector("#cancel-btn");
+  const deleteConfirmBtn = document.querySelector("#delete-btn");
+
+  // Function to open a modal
+  function openModal(modal) {
+    if (!modal) {
+      console.error("Modal not found in the DOM.");
+      return;
+    }
+    console.log("Opening modal:", modal);
+    modal.classList.add("modal_opened");
+  }
+
+  // Function to close a modal
+  function closeModal(modal) {
+    if (!modal) {
+      console.error("Modal not found in the DOM.");
+      return;
+    }
+    console.log("Closing modal:", modal);
+    modal.classList.remove("modal_opened");
+  }
+
+  // Event listener for the Cancel button
+  if (deleteCancelBtn) {
+    deleteCancelBtn.addEventListener("click", () => closeModal(deleteModal));
+  } else {
+    console.error("Cancel button not found in the DOM.");
+  }
+
+  // Event listener for the Delete button
+  if (deleteConfirmBtn) {
+    deleteConfirmBtn.addEventListener("click", () => {
+      console.log("Delete button clicked");
+      // Add your delete logic here
+      closeModal(deleteModal);
+    });
+  } else {
+    console.error("Delete button not found in the DOM.");
+  }
+});
+
+const deleteButtons = document.querySelectorAll(".card__delete-button");
+
+deleteButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const cardElement = event.target.closest(".card");
+    if (!cardElement) {
+      console.error("Card element not found.");
+      return;
+    }
+    const cardId = cardElement.dataset.id; // Get the card ID from the data attribute
+    if (!cardId) {
+      console.error("Card ID not found.");
+      return;
+    }
+    openDeleteModal(cardId); // Pass the card ID to the function
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const deleteConfirmBtn = document.querySelector("#delete-btn");
+  const cancelBtn = document.querySelector("#cancel-btn");
+
+  if (!deleteConfirmBtn) {
+    console.error("Delete confirm button not found in the DOM.");
+    return;
+  }
+
+  if (!cancelBtn) {
+    console.error("Cancel button not found in the DOM.");
+    return;
+  }
+
+  deleteConfirmBtn.addEventListener("click", () => {
+    console.log("Delete button clicked");
+    // Add delete logic here
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    console.log("Cancel button clicked");
+    // Add cancel logic here
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const deleteModal = document.querySelector("#delete-modal");
+  const deleteCancelBtn = document.querySelector("#cancel-btn");
+
+  if (!deleteModal) {
+    console.error("Delete modal not found in the DOM.");
+    return;
+  }
+
+  if (!deleteCancelBtn) {
+    console.error("Cancel button not found in the DOM.");
+    return;
+  }
+
+  deleteCancelBtn.addEventListener("click", () => {
+    console.log("Cancel button clicked");
+    deleteModal.classList.remove("modal_opened"); // Close the modal
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const deleteButtons = document.querySelectorAll(".card__delete-button");
+
+  if (deleteButtons.length === 0) {
+    console.error("No delete buttons found in the DOM.");
+    return;
+  }
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const cardElement = event.target.closest(".card");
+      if (!cardElement) {
+        console.error("Card element not found.");
+        return;
+      }
+      const cardId = cardElement.dataset.id; // Get the card ID from the data attribute
+      if (!cardId) {
+        console.error("Card ID not found.");
+        return;
+      }
+      openDeleteModal(cardId); // Pass the card ID to the function
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Add event listeners to delete icons
+  const deleteButtons = document.querySelectorAll(".card__delete-button");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const cardElement = event.target.closest(".card");
+      if (!cardElement) {
+        console.error("Card element not found.");
+        return;
+      }
+      const cardId = cardElement.dataset.id; // Get the card ID from the data attribute
+      if (!cardId) {
+        console.error("Card ID not found.");
+        return;
+      }
+      openDeleteModal(cardId); // Open the delete modal
+    });
+  });
+
+  // Add event listener to the delete button in the modal
+  const deleteConfirmBtn = document.querySelector("#delete-btn");
+  if (deleteConfirmBtn) {
+    deleteConfirmBtn.addEventListener("click", handleDeleteCard);
+  } else {
+    console.error("Delete confirm button not found in the DOM.");
+  }
+
+  // Add event listener to the cancel button in the modal
+  const cancelBtn = document.querySelector("#cancel-btn");
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", closeDeleteModal);
+  } else {
+    console.error("Cancel button not found in the DOM.");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeDeleteModal();
+  initializeCards();
+});
+

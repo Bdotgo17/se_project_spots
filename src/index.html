@@ -20,7 +20,12 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img alt="Bessie Coleman" class="profile__avatar" />
+          <button class="profile__avatar-btn">
+            <img alt="Bessie Coleman" class="profile__avatar" />
+            <div class="profile__edit-wrapper">
+              <img class="profile__pencil-icon" alt="Pencil Icon" src="" />
+            </div>
+          </button>
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
@@ -35,20 +40,23 @@
             <template id="card-template">
               <li class="card">
                 <button type="button" class="card__delete-button"></button>
-                <img src="" alt="" class="card__image" />
+                <img class="card__image" alt="Card image" />
                 <div class="card__content">
-                  <h2 class="card__title"></h2>
+                  <h2 class="card__title">Card Title</h2>
+                  <span class="card__like-count">0</span>
                   <button type="button" class="card__like-button"></button>
                 </div>
               </li>
             </template>
           </ul>
+          <div class="cards-container"></div>
         </section>
       </main>
       <footer class="footer">
         <p class="footer__text">2025&copy;Spots</p>
       </footer>
-      <div class="modal" id="edit-modal">
+
+      <div id="edit-profile-modal" class="modal">
         <div class="modal__container">
           <button type="button" class="modal__close-btn"></button>
           <h2 class="modal__title">Edit Profile</h2>
@@ -121,16 +129,66 @@
           </form>
         </div>
       </div>
-    </div>
-    <div class="modal" id="preview-modal">
-      <div class="modal__container modal__container_type_preview">
-        <button
-          type="button"
-          class="modal__close-btn modal__close-btn-preview"
-        ></button>
-        <img class="modal__image" src="" alt="" />
-        <p class="modal__caption"></p>
+      <div class="modal" id="preview-modal">
+        <div class="modal__container modal__container_type_preview">
+          <button type="button" class="modal__close-btn"></button>
+          <img class="modal__image" src="" alt="" />
+          <p class="modal__caption"></p>
+        </div>
       </div>
+
+      <div class="modal" id="avatar-modal">
+        <div class="modal__container">
+          <button type="button" class="modal__close-btn"></button>
+          <h3 class="modal__title">Edit profile avatar</h3>
+          <form
+            name="edit-avatar"
+            id="edit-avatar-form"
+            class="modal__form"
+            novalidate
+          >
+            <label for="profile-avatar-input" class="modal__label">
+              Profile Picture
+              <input
+                id="profile-avatar-input"
+                type="url"
+                class="modal__input"
+                name="avatar"
+                placeholder="Place the link to an image"
+                required
+              />
+              <span id="profile-avatar-input-error" class="modal__error"></span>
+            </label>
+            <button type="submit" class="modal__submit-btn">Save</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="delete-modal" class="modal">
+        <div class="modal__content">
+          <h2>Are you sure?</h2>
+          <form id="delete-form" class="modal__form">
+            <button id="delete-btn" class="modal__delete-btn">Delete</button>
+            <button id="cancel-btn" class="modal__cancel-btn" type="button">Cancel</button>
+          </form>
+        </div>
+      </div>
+
+      <form class="form" novalidate>
+        <input type="text" id="name" class="form__input" required />
+        <span id="name-error" class="form__error"></span>
+
+        <input type="email" id="email" class="form__input" required />
+        <span id="email-error" class="form__error"></span>
+
+        <button
+          type="submit"
+          class="form__submit form__submit_disabled"
+          disabled
+        >
+          Submit
+        </button>
+      </form>
     </div>
   </body>
 </html>
