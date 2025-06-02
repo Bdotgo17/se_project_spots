@@ -1,10 +1,12 @@
 .card {
   position: relative;
+  width: 413px; /* Adjust width as needed */
+  height: 413px;
 }
 
 .card__image {
   height: 413px;
-  width: 100%;
+  width: 413px;
   object-fit: cover;
   display: block;
   border-radius: 8px;
@@ -19,7 +21,7 @@
 
 /* Default like button: darker heart icon */
 .card__like-button {
-  background: url('../images/darkerHeartIcon.svg') no-repeat center center;
+  background: url("../images/darkerHeartIcon.svg") no-repeat center center;
   background-size: contain;
   border: none;
   width: 24px;
@@ -30,7 +32,7 @@
 
 /* Liked state: red heart icon */
 .card__like-button_liked {
-  background: url('../images/redHeartLikedDarker.svg') no-repeat center center;
+  background: url("../images/redHeartLikedDarker.svg") no-repeat center center;
   background-size: contain;
 }
 
@@ -78,7 +80,7 @@
   max-width: 353px;
   color: #212121;
   margin: 0;
-  padding-top: 12px;
+  padding-top: 0px;
 }
 
 @media screen and (max-width: 627px) {

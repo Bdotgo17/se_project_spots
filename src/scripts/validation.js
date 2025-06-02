@@ -41,8 +41,12 @@ const checkInputValidity = (formEl, inputEl, config) => {
   }
 };
 
-// Toggle button state
 const toggleButtonState = (inputList, buttonEl, config) => {
+  console.log("Button element:", buttonEl);
+  if (!buttonEl) {
+    console.error("Submit button not found in the DOM.");
+    return;
+  }
   const hasInvalidInput = inputList.some((inputEl) => !inputEl.validity.valid);
 
   if (hasInvalidInput) {
@@ -72,7 +76,10 @@ const setEventListeners = (formEl, config) => {
 // Enable validation for all forms
 export const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
+  console.log("Forms found:", formList);
+  
   formList.forEach((formEl) => {
+    console.log("Initializing validation for form:", formEl);
     setEventListeners(formEl, config);
   });
 };
@@ -91,6 +98,7 @@ export const resetValidation = (formEl, inputList, config) => {
 const deleteForm = document.querySelector("#delete-form");
 const deleteButton = document.querySelector("#delete-btn");
 
+if (deleteForm && deleteButton) {
 deleteForm.addEventListener("submit", (evt) => {
   evt.preventDefault(); // Prevent default form submission behavior
 
@@ -106,3 +114,4 @@ deleteForm.addEventListener("submit", (evt) => {
     deleteButton.disabled = false; // Re-enable the button
   }, 2000); // Simulate a 2-second API call
 });
+}
