@@ -17,7 +17,7 @@ const config = {
 };
 
 // Show input error
-const showInputError = (formEl, inputEl, errorMsg, config) => {
+export const showInputError = (formEl, inputEl, errorMsg, config) => {
   const errorMsgID = inputEl.id + "-error";
   const errorMsgEl = formEl.querySelector("#" + errorMsgID);
   errorMsgEl.textContent = errorMsg;
@@ -25,7 +25,7 @@ const showInputError = (formEl, inputEl, errorMsg, config) => {
 };
 
 // Hide input error
-const hideInputError = (formEl, inputEl, config) => {
+export const hideInputError = (formEl, inputEl, config) => {
   const errorMsgID = inputEl.id + "-error";
   const errorMsgEl = formEl.querySelector("#" + errorMsgID);
   errorMsgEl.textContent = "";
@@ -33,7 +33,7 @@ const hideInputError = (formEl, inputEl, config) => {
 };
 
 // Check input validity
-const checkInputValidity = (formEl, inputEl, config) => {
+export const checkInputValidity = (formEl, inputEl, config) => {
   if (!inputEl.validity.valid) {
     showInputError(formEl, inputEl, inputEl.validationMessage, config);
   } else {
@@ -41,7 +41,8 @@ const checkInputValidity = (formEl, inputEl, config) => {
   }
 };
 
-const toggleButtonState = (inputList, buttonEl, config) => {
+export const toggleButtonState = (inputList, buttonEl, config) => {
+  
   console.log("Button element:", buttonEl);
   if (!buttonEl) {
     console.error("Submit button not found in the DOM.");
@@ -62,7 +63,7 @@ const toggleButtonState = (inputList, buttonEl, config) => {
 const setEventListeners = (formEl, config) => {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
   const buttonEl = formEl.querySelector(config.submitButtonSelector);
-
+  console.log("button el>>>",formEl)
   inputList.forEach((inputEl) => {
     inputEl.addEventListener("input", () => {
       checkInputValidity(formEl, inputEl, config);

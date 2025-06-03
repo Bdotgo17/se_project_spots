@@ -7,8 +7,6 @@ class Api {
   }
 
   updateAvatar(avatarUrl) {
-    // Your code here
-    // Hint: Look at the editUserInfo method for a similar pattern
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
@@ -33,10 +31,6 @@ class Api {
     }).then((res) => {
       if (res.ok) {
         return res.json().then((userData) => {
-          // userData.avatar = avatarImage; // Use the imported avatar image
-          // userData.name = "Bessie Coleman";
-
-          // userData.about = "Civil Aviator";
           return userData;
         });
       }
@@ -140,8 +134,6 @@ class Api {
       .then((data) => {
         console.log("API Response for addLike:", data); // Debug the response
         console.log("Image URL being set:", data.link);
-        // cardImageEl.src = data.link;
-        // return data;
       });
   }
 
@@ -183,7 +175,5 @@ class Api {
     });
   }
 }
-
-//enableValidation(settings);
 
 export default Api;
