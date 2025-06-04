@@ -7,21 +7,33 @@ export const settings = {
   errorClass: "modal__error_visible",
 };
 
-const showInputError = (formEl, inputEl, errorMsg, config) => {
+// Configuration object for form validation
+const config = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-btn",
+  inactiveButtonClass: "modal__submit-btn_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+// Show input error
+export const showInputError = (formEl, inputEl, errorMsg, config) => {
   const errorMsgID = inputEl.id + "-error";
   const errorMsgEl = formEl.querySelector("#" + errorMsgID);
   errorMsgEl.textContent = errorMsg;
   inputEl.classList.add(config.inputErrorClass);
 };
 
-const hideInputError = (formEl, inputEl, config) => {
+// Hide input error
+export const hideInputError = (formEl, inputEl, config) => {
   const errorMsgID = inputEl.id + "-error";
   const errorMsgEl = formEl.querySelector("#" + errorMsgID);
   errorMsgEl.textContent = "";
   inputEl.classList.remove(config.inputErrorClass);
 };
 
-const checkInputValidity = (formEl, inputEl, config) => {
+// Check input validity
+export const checkInputValidity = (formEl, inputEl, config) => {
   if (!inputEl.validity.valid) {
     showInputError(formEl, inputEl, inputEl.validationMessage, config);
   } else {
@@ -29,22 +41,51 @@ const checkInputValidity = (formEl, inputEl, config) => {
   }
 };
 
-const hasInvalidInput = (inputList) => {
-  return inputList.some((input) => {
-    return !input.validity.valid;
-  });
-};
+export const toggleButtonState = (inputList, buttonEl, config) => {
+  
+  console.log("Button element:", buttonEl);
+  if (!buttonEl) {
+    //console.error("Submit button not found in the DOM.");
+    return;
+  }
+  const hasInvalidInput = inputList.some((inputEl) => !inputEl.validity.valid);
 
-const toggleButtonState = (inputList, buttonEl, config) => {
-  if (hasInvalidInput(inputList)) {
-    disableButton(buttonEl, config);
+  if (hasInvalidInput) {
+    buttonEl.disabled = true;
+    buttonEl.classList.add(config.inactiveButtonClass);
   } else {
     buttonEl.disabled = false;
     buttonEl.classList.remove(config.inactiveButtonClass);
   }
 };
 
-const disableButton = (buttonEl, config) => {
+// Set event listeners for a form
+const setEventListeners = (formEl, config) => {
+  const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
+  const buttonEl = formEl.querySelector(config.submitButtonSelector);
+  console.log("button el>>>",formEl)
+  inputList.forEach((inputEl) => {
+    inputEl.addEventListener("input", () => {
+      checkInputValidity(formEl, inputEl, config);
+      toggleButtonState(inputList, buttonEl, config);
+    });
+  });
+
+  toggleButtonState(inputList, buttonEl, config);
+};
+
+// Enable validation for all forms
+export const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  console.log("Forms found:", formList);
+  
+  formList.forEach((formEl) => {
+    console.log("Initializing validation for form:", formEl);
+    setEventListeners(formEl, config);
+  });
+};
+
+export const disableButton = (buttonEl, config) => {
   buttonEl.disabled = true;
   buttonEl.classList.add(config.inactiveButtonClass);
 };
@@ -55,23 +96,25 @@ export const resetValidation = (formEl, inputList, config) => {
   });
 };
 
-const setEventListeners = (formEl, config) => {
-  const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
-  const buttonElement = formEl.querySelector(config.submitButtonSelector);
+const deleteForm = document.querySelector("#delete-form");
+const deleteButton = document.querySelector("#delete-btn");
 
-  toggleButtonState(inputList, buttonElement, config);
+if (deleteForm && deleteButton) {
+deleteForm.addEventListener("submit", (evt) => {
+  evt.preventDefault(); // Prevent default form submission behavior
 
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(formEl, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
-    });
-  });
-};
+  deleteButton.textContent = "Deleting..."; // Update button text
+  deleteButton.disabled = true; // Disable the button to prevent multiple clicks
 
-export const enableValidation = (config) => {
-  const formList = document.querySelectorAll(config.formSelector);
-  formList.forEach((formEl) => {
-    setEventListeners(formEl, config);
-  });
-};
+  // Simulate an API call
+  setTimeout(() => {
+    console.log("Card deleted successfully!");
+
+    // Re-enable the button after the operation is complete
+    deleteButton.textContent = "Delete"; // Reset button text
+    deleteButton.disabled = false; // Re-enable the button
+  }, 2000); // Simulate a 2-second API call
+});
+}
+
+//Consolidated settings object for form validation
