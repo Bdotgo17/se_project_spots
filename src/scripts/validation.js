@@ -45,7 +45,7 @@ export const toggleButtonState = (inputList, buttonEl, config) => {
   
   console.log("Button element:", buttonEl);
   if (!buttonEl) {
-    console.error("Submit button not found in the DOM.");
+    //console.error("Submit button not found in the DOM.");
     return;
   }
   const hasInvalidInput = inputList.some((inputEl) => !inputEl.validity.valid);
@@ -116,3 +116,5 @@ deleteForm.addEventListener("submit", (evt) => {
   }, 2000); // Simulate a 2-second API call
 });
 }
+
+//Consolidated settings object for form validation
